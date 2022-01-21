@@ -16,10 +16,14 @@ func main() {
 	db := config.GetDBConnection()
 
 	userRepository := _repository.NewUserRepository(db)
-	userUseCase := _usecase.NewUserUsecase(userRepository)
+	userUsecase := _usecase.NewUserUsecase(userRepository)
+
+	categoryRepository := _repository.NewCategoryRepository(db)
+	categoryUsecase := _usecase.NewCategoryUsecase(categoryRepository)
 
 	api := router.Group("/")
-	_handler.NewUserHandler(api, userUseCase)
+	_handler.NewUserHandler(api, userUsecase)
+	_handler.NewCategoryHandler(api, categoryUsecase)
 
 	port := os.Getenv("PORT")
 	if port == "" {
