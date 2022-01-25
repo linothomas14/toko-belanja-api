@@ -11,7 +11,7 @@ type Category struct {
 	Sold_Product_Amount int64     `json:"sold_product_amount" gorm:"notNull"`
 	CreatedAt           time.Time `json:"created_at" gorm:"notNull"`
 	UpdatedAt           time.Time `json:"updated_at" gorm:"notNull"`
-	Products            []Product `gorm:"foreignKey:category_Id`
+	Products            []Product `gorm:"foreignKey:id"`
 }
 
 type CategoryUsecase interface {
