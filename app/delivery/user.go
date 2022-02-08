@@ -106,6 +106,7 @@ func (u *UserHandler) TopUp(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": err.Error(),
 		})
+		return
 	}
 	err = helper.ValidateStruct(request)
 	if err != nil {
@@ -130,7 +131,6 @@ func (u *UserHandler) TopUp(ctx *gin.Context) {
 			"message": "Your balance has been successfully update to Rp" + strconv.Itoa(int(userData.Balance)),
 		},
 	})
-	return
 }
 
 func getStatusCode(err error) int {

@@ -21,9 +21,13 @@ func main() {
 	categoryRepository := _repository.NewCategoryRepository(db)
 	categoryUsecase := _usecase.NewCategoryUsecase(categoryRepository)
 
+	productRepository := _repository.NewProductRepository(db)
+	productUsecase := _usecase.NewProductUsecase(productRepository, categoryRepository)
+
 	api := router.Group("/")
 	_handler.NewUserHandler(api, userUsecase)
 	_handler.NewCategoryHandler(api, categoryUsecase)
+	_handler.NewProductHandler(api, productUsecase)
 
 	port := os.Getenv("PORT")
 	if port == "" {
