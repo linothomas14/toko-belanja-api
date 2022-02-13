@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/joho/godotenv"
+	"github.com/linothomas14/toko-belanja-api/app/helper"
 	"github.com/linothomas14/toko-belanja-api/domain"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -38,7 +40,8 @@ func StartDB() {
 	}
 
 	log.Println("Success connect to Database")
-	db.AutoMigrate(domain.User{}, domain.Category{}, domain.Product{})
+	db.AutoMigrate(domain.User{}, domain.Category{}, domain.Product{}, domain.Transaction{})
+	Seeders(db)
 	SetUpDBConnection(db)
 }
 
@@ -48,4 +51,21 @@ func SetUpDBConnection(DB *gorm.DB) {
 
 func GetDBConnection() *gorm.DB {
 	return db
+}
+
+func Seeders(db *gorm.DB) {
+	var user  domain.User = domain.User {
+		FullName: "admin",
+		Email: "admin@gmail.com",
+		Balance: 0,
+		Role: "admin",
+		Password: helper.HassPass("admin123"),
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+
+	err := db.First(&user, "email = ?", user.Email).Error
+	if err != nil {
+		db.Create(&user)
+	}
 }
