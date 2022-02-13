@@ -40,7 +40,7 @@ func (c *ProductHandler) StoreProduct(ctx *gin.Context) {
 		Title string `json:"title" validate:"required"`
 		Price int64 `json:"price" validate:"required,gte=0,lte=50000000"`
 		Stock int64 `json:"stock" validate:"required,gte=5"`
-		CategoryID int64 `json:"category_Id" validate:"required"`
+		CategoryID int64 `json:"category_id" validate:"required"`
 	}
 	var storeProduct StoreProduct
 	err := ctx.ShouldBindJSON(&storeProduct)
@@ -78,7 +78,7 @@ func (c *ProductHandler) UpdateProduct(ctx *gin.Context) {
 		Title string `json:"title" validate:"required"`
 		Price int64 `json:"price" validate:"required,gte=0,lte=50000000"`
 		Stock int64 `json:"stock" validate:"required,gte=5"`
-		CategoryID int64 `json:"category_Id" validate:"required"`
+		CategoryID int64 `json:"category_id" validate:"required"`
 	}
 	var updateProduct UpdateProduct
 	err := ctx.ShouldBindJSON(&updateProduct)

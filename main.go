@@ -24,10 +24,14 @@ func main() {
 	productRepository := _repository.NewProductRepository(db)
 	productUsecase := _usecase.NewProductUsecase(productRepository, categoryRepository)
 
+	transactionRepository := _repository.NewTransactionRepository(db)
+	transactionUsecase := _usecase.NewTransactionUsecase(transactionRepository,userRepository,productRepository,categoryRepository)
+
 	api := router.Group("/")
 	_handler.NewUserHandler(api, userUsecase)
 	_handler.NewCategoryHandler(api, categoryUsecase)
 	_handler.NewProductHandler(api, productUsecase)
+	_handler.NewTransactionHandler(api, transactionUsecase)
 
 	port := os.Getenv("PORT")
 	if port == "" {

@@ -62,7 +62,7 @@ func (u *UserUsecase) TopUp(ctx context.Context, user *domain.User) (domain.User
 	user.Balance += userTemp.Balance
 
 	user.UpdatedAt = time.Now()
-	err = u.userRepository.TopUp(ctx, user)
+	err = u.userRepository.UpdateUser(ctx, user)
 	if err != nil {
 		return domain.User{}, domain.ErrInternalServerError
 	}

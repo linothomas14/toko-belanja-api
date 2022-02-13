@@ -10,7 +10,7 @@ type Product struct {
 	Title      string    `json:"title" gorm:"notNull"`
 	Price      int64     `json:"price" gorm:"notNull"`
 	Stock      int64     `json:"stock" gorm:"notNull"`
-	CategoryID int64     `json:"category_Id"  gorm:"notNull"`
+	CategoryID int64     `json:"category_id"  gorm:"notNull"`
 	CreatedAt  time.Time `json:"created_at" gorm:"notNull"`
 	UpdatedAt  time.Time `json:"updated_at" gorm:"notNull"`
 }

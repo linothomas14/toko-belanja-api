@@ -42,7 +42,7 @@ func (u *UserRepository) GetUserByEmail(ctx context.Context, email string) (doma
 	return user, nil
 }
 
-func (u *UserRepository) TopUp(ctx context.Context, user *domain.User) error {
+func (u *UserRepository) UpdateUser(ctx context.Context, user *domain.User) error {
 	err := u.Conn.Model(user).Updates(user).Error
 	return err
 }
