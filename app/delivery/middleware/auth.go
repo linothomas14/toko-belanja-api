@@ -19,14 +19,14 @@ func Authentication() gin.HandlerFunc {
 			})
 			return
 		}
-		ctx.Set("admin", verifyToken)
+		ctx.Set("user", verifyToken)
 		ctx.Next()
 	}
 }
 
 func Authorization(roles []string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		userAuth := ctx.MustGet("admin").(jwt.MapClaims)
+		userAuth := ctx.MustGet("user").(jwt.MapClaims)
 		userRole := userAuth["role"]
 		for _, role := range roles {
 			if role == userRole {

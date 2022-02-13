@@ -146,6 +146,10 @@ func getStatusCode(err error) int {
 		return http.StatusConflict
 	case domain.ErrUnauthorized:
 		return http.StatusUnauthorized
+	case domain.ErrBalanceNotEnough:
+		return http.StatusPaymentRequired
+	case domain.ErrStockNotEnough:
+		return http.StatusBadRequest
 	default:
 		return http.StatusInternalServerError
 	}
