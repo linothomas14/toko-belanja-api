@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/linothomas14/toko-belanja-api/domain"
@@ -53,8 +54,9 @@ func (t *TransactionUsecase) StoreTransaction(ctx context.Context, transaction *
 		return nil, domain.ErrBalanceNotEnough
 	}
 	
-	product.Stock = product.Stock - 1
+	product.Stock = product.Stock - transaction.Quantity
 	product.UpdatedAt = time.Now()
+	fmt.Println("cekk", product.Stock)
 	err = t.productRepository.UpdateProduct(ctx, &product)
 	if err != nil {
 		return nil, domain.ErrInternalServerError
@@ -78,6 +80,7 @@ func (t *TransactionUsecase) StoreTransaction(ctx context.Context, transaction *
 		return nil, domain.ErrInternalServerError
 	}
 
+	transaction.TotalPrice = product.Price * transaction.Quantity
 	transaction.CreatedAt = time.Now()
 	transaction.UpdatedAt = time.Now()
 	err = t.transactionRepository.StoreTransaction(ctx, transaction)

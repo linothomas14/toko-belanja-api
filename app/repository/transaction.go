@@ -47,7 +47,7 @@ func (t *TransactionRepository) GetMyTransactions(ctx context.Context, userId in
 	}
 
 	var transactionsProduct []Transaction
-	err := t.Conn.Preload("Product").Where("id", userId).Find(&transactionsProduct).Error
+	err := t.Conn.Preload("Product").Where("user_id = ?", userId).Find(&transactionsProduct).Error
 	if err != nil {
 		return nil, err
 	}

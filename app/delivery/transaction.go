@@ -1,7 +1,6 @@
 package delivery
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
@@ -71,8 +70,6 @@ func (t *TransactionHandler) StoreTransaction(ctx *gin.Context){
 	userID := int64(userAuth["id"].(float64))
 
 	transaction.UserID = userID
-	fmt.Println(storeProductVal)
-	fmt.Println(transaction)
 	dataTransaction, err := t.transactionUsecase.StoreTransaction(ctx, &transaction)
 	if err != nil {
 		ctx.JSON(getStatusCode(err), gin.H{"message": err.Error()})
